@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const typescript_ioc_1 = require("typescript-ioc");
+(0, tslib_1.__exportStar)(require("./hello-world.api"), exports);
+(0, tslib_1.__exportStar)(require("./hello-world.service"), exports);
+(0, tslib_1.__exportStar)(require("./weather.api"), exports);
+(0, tslib_1.__exportStar)(require("./weather.service"), exports);
+const ioc_config_1 = (0, tslib_1.__importDefault)(require("./ioc.config"));
+typescript_ioc_1.Container.configure(...ioc_config_1.default);
