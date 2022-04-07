@@ -177,6 +177,19 @@ Open the `IBM Security Verify endpoint` in a new browser tab. Note down the belo
 - `token_endpoint`
 - `userinfo_endpoint`.
 
+### Add a new user to Security Verify
+
+Next go to `Users & Groups` to add a new user. Click on `Add user`.
+
+![adduser](images/select_adduser.png)
+
+Select `Identity source` as `Cloud Directory`. Enter values for `Given name` and `Surname`. Enter any valid e-mail address for `Work e-mail`. Click on `Save`.
+
+![configureuser](images/configure_user.png)
+
+Check your e-mail for a confirmation mail from Security Verify. The email contains a temporary password and a link to login to Security Verify. Login to Security Verify and change your password.
+
+![confirmemail](images/email_confirm.png)
 
 Intro:
 This tutorial will help you to understand the ...
