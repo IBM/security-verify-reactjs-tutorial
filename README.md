@@ -203,4 +203,27 @@ When we create a react app, it runs on its own server (express). You can configu
 To integrate React UI with security verify,  we need to do login using security verify page and then come back to React UI.
 Here in this tutorial, the UI code is available at `sources/frontend-gateway-svc/ui-react`. 
 
+### Monitor application usage
+
+You can generate a report for an application. Navigate to `Reports`.
+Select the application and click on `View Report`.
+
+![viewreport](images/view_report.png)
+
+View user activity for the application:
+
+![appreport](images/app_report.png)
+
+
+### Summary
+
+In this tutorial, you added SSO to a React.JS based application with Security Verify. You saw how back-end microservices can be protected with Security Verify. I hope you found the tutorial useful!
+
+If you wish to use `Spring Security` to integrate your Java application with `Security Verify` please refer to the tutorial - [Protect enterprise applications with single sign-on (SSO) and monitor their usage using IBM Security Verify](https://developer.ibm.com/tutorials/protect-applications-sso-ibm-security-verify/).
+
+If you wish to integrate an application on `Open Liberty` with `Security Verify`, please refer to the tutorial - [Configure Open Liberty to integrate with IBM Security Verify for SSO](https://developer.ibm.com/tutorials/configure-open-liberty-to-integrate-with-security-verify-for-sso/).
+
+You can explore further to see how SSO can be added to [Node](https://github.com/IBM-Security/verify-sdk-javascript), [Android](https://github.com/IBM-Security/verify-sdk-android) or [iOS](https://github.com/IBM-Security/verify-sdk-ios) applications. In addition, the tutorial [Modern authentication protocols](https://developer.ibm.com/tutorials/secure-applications-modern-single-sign-on-protocols) provides a good introduction to Security Verify and implementing SSO for a Node.js application.
+
+
 
