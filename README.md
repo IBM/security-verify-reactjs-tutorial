@@ -1,3 +1,86 @@
+---
+#Front matter (metadata).
+abstract:  Add SSO to a ReactJS based app using Security Verify 
+
+authors:                # REQUIRED - Note: can be one or more
+  - name: Shikha Maheshwari
+    email: shikha.mah@in.ibm.com
+  - name: Balaji Kadambi
+    email: bkadambi@in.ibm.com
+
+completed_date:         # REQUIRED - Note: date format is YYYY-MM-DD
+
+components:
+# For a full list of options see https://github.ibm.com/IBMCode/Definitions/blob/master/components.yml
+# Use the "slug" value found at the link above to include it in this content.
+# Example (remove the # to uncomment):
+ # - "aix"
+
+draft: true|false       # REQUIRED
+
+excerpt:     Add SSO to a ReactJS based app using Security Verify 
+
+keywords:              security verify, security, sso
+
+last_updated:           # REQUIRED - Note: date format is YYYY-MM-DD
+
+primary_tag:         "security"  
+
+pta:                     "cloud, container, and infrastructure"
+# For a full list of options see https://github.ibm.com/IBMCode/Definitions/blob/master/primary-technology-area.yml
+# Use the "slug" value found at the link above to include it in this content.
+# Example (remove the # to uncomment):
+ # - "cloud, container, and infrastructure"
+
+pwg:                    "security"
+# For a full list of options see https://github.ibm.com/IBMCode/Definitions/blob/master/portfolio-working-group.yml
+# Use the "slug" value found at the link above to include it in this content.
+# Example (remove the # to uncomment):
+# - "containers"
+
+related_content:        # OPTIONAL - Note: zero or more related content
+  - type: announcements|articles|blogs|patterns|series|tutorials|videos
+    slug:
+
+related_links:           # OPTIONAL - Note: zero or more related links
+
+
+runtimes:               # OPTIONAL - Note: Select runtimes from the complete set of runtimes below. Do not create new runtimes. Only use runtimes specifically in use by your content.
+# For a full list of options see https://github.ibm.com/IBMCode/Definitions/blob/master/runtimes.yml
+# Use the "slug" value found at the link above to include it in this content.
+# Example (remove the # to uncomment):
+- "liberty for java"
+
+series:                 # OPTIONAL
+ - type:
+   slug:
+
+services:               # OPTIONAL - Note: please select services from the complete set of services below. Do not create new services. Only use services specifically in use by your content.
+# For a full list of options see https://github.ibm.com/IBMCode/Definitions/blob/master/services.yml
+# Use the "slug" value found at the link above to include it in this content.
+# Example (remove the # to uncomment):
+- "security-verify"
+
+subtitle:               Provide a single point access to enterprise applications and monitor their usage
+
+tags:
+# Please select tags from the complete set of tags below. Do not create new tags. Only use tags specifically targeted for your content. If your content could match all tags (for example cloud, hybrid, and on-prem) then do not tag it with those tags. Less is more.
+# For a full list of options see https://github.ibm.com/IBMCode/Definitions/blob/master/tags.yml
+# Use the "slug" value found at the link above to include it in this content.
+# Example (remove the # to uncomment):
+ # - "blockchain"
+
+title:                  Add SSO to a ReactJS based app using Security Verify 
+translators:             # OPTIONAL - Note: can be one or more
+  - name:
+    email:
+
+type: tutorial|howto    # REQUIRED
+
+---
+
+
+
 # Add SSO to a ReactJs based app using Security Verify 
 
 Intro:
