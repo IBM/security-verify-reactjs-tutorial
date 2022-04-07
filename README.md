@@ -80,6 +80,28 @@ type: tutorial|howto    # REQUIRED
 ---
 
 
+[IBM Security Verify](https://www.ibm.com/products/verify-for-workforce-iam) provides identity-as-a-service for every user, including Single sign-on(SSO), risk-based Multi factor authentication(MFA) and adaptive access, user lifecycle management, and identity analytics. 
+
+Security Verify includes `SAML` and `OIDC` cloud based federated single sign-on with connectors. In this tutorial, you will learn how to to make the required connection for your custom application using the OpenID Connect (OIDC) single sign-on protocol.
+
+`OpenID Connect v1.0 (OIDC)` is a modern standard for web single sign-on. It adds an identity layer to the `OAuth 2.0` standard. These standards are popular because they have simple client-side implementations, making it easy for you to get connected. The standards support different grant types for different use cases. For web applications, the `Authorization code` grant type is the most commonly used and most widely supported. We will use the `Authorization code` grant type for this tutorial.
+
+This tutorial covers the below aspects:
+
+- Adding and configure a custom application on Security Verify for SSO <br/>
+The custom application can be deployed anywhere - On-premise or on any Cloud provider. We will run an application locally for this tutorial to demonstrate the procedure which would remain the same irrespective of where the application is deployed. The custom application is registered with Security Verify.
+
+- Enable and Configure verify-sdk for a ReactJS based application <br/>
+In this tutorial, we demonstrate a strategy to use [verify-sdk](https://docs.verify.ibm.com/verify/docs/verify-sdk) with a ReactJS app.
+
+- Set up Authentication for login path on sample application <br/>
+For this tutorial, we will download and configure a sample application available [here](https://github.com/IBM/security-verify-reactjs-tutorial). This configuration would re-direct the request to `Security Verify` for authentication.
+
+- Protect other paths on the application using token introspection with Security Verify <br/>
+The sample tutorial application has two other microservices as part of the solution - weather service and user info service. The weather service is a Node.js microservice and user info service is a Java microservice. The APIs exposed by both these services are protected. Once an user is authenticated with Security Verify, an access token is retrieved. This access token is sent back to the browser and stored as a secure cookie. This cookie is sent to the server for all other subsequent API calls. In the API implementations, the token is introspected with Security Verify for validity. If the token is valid, the API access is allowed else the access is rejected.
+
+- Monitor the usage of the application on Security Verify <br/>
+The Security Verify Dashboard can be used to generate reports on the application usage with details of number of user logins. The logins can be further analyzed to check for successful and unsuccessul login attempts.
 
 # Add SSO to a ReactJs based app using Security Verify 
 
