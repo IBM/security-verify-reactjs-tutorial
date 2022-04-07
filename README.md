@@ -185,6 +185,8 @@ Check your e-mail for a confirmation mail from Security Verify. The email contai
 
 ![confirmemail](images/email_confirm.png)
 
+### Create an OpenShift cluster
+
 ### Deploy the weather microservice
 
 #### Get API key from Open Weather Map
