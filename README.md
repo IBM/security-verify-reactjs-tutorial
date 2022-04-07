@@ -103,15 +103,9 @@ The sample tutorial application has two other microservices as part of the solut
 - Monitor the usage of the application on Security Verify <br/>
 The Security Verify Dashboard can be used to generate reports on the application usage with details of number of user logins. The logins can be further analyzed to check for successful and unsuccessul login attempts.
 
-# Add SSO to a ReactJs based app using Security Verify 
-
 ## Prerequisites
 
 [IBM Security Verify account](https://www.ibm.com/account/reg/in-en/signup?formid=urx-30041)
-
-[Maven](https://maven.apache.org/)
-
-[Java](https://www.oracle.com/in/java/technologies/javase-downloads.html)
 
 [Git client](https://git-scm.com/downloads)
 
