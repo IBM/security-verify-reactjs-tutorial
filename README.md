@@ -105,6 +105,79 @@ The Security Verify Dashboard can be used to generate reports on the application
 
 # Add SSO to a ReactJs based app using Security Verify 
 
+## Prerequisites
+
+[IBM Security Verify account](https://www.ibm.com/account/reg/in-en/signup?formid=urx-30041)
+
+[Maven](https://maven.apache.org/)
+
+[Java](https://www.oracle.com/in/java/technologies/javase-downloads.html)
+
+[Git client](https://git-scm.com/downloads)
+
+[OpenShift CLI](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html)
+
+## Estimated time
+
+Completing this tutorial should take about 30 minutes.
+
+## Steps
+
+### Add a custom application on Security Verify
+
+Login to Security Verify. Select `Applications` from the menu.
+
+![selectapp](images/select_applications.png)
+
+Click on `Add application` to add an application.
+
+![clickapp](images/click_application.png)
+
+Select the application type as `Custom Application`. Click on `Add application`.
+
+![addapp](images/click_add_application.png)
+
+Enter a name for the application and a `Company name`.
+
+![enterdetails](images/enter_name_company.png)
+
+
+You will now configure SSO using the [OpenID Connect](https://openid.net/connect/) based authentication with `Authorization code` scheme. Click on the `Sign-on` tab. Configure as follows:
+- Enter a name for the app say `Liberty App`
+- Select the `Sign-on method` as `Open ID Connect 1.0`. 
+- Enter the `Application URL` as `<TODO>`.
+- Choose `Grant types` as `Authorization code`.
+- Unselect the option `Require proof key for code exchange (PKCE) verification`.
+- Enter `Redirect URIs` as `<TODO>`.
+Click on `Save` to save the configuration.
+
+![configuresso](images/configure_sso.png)
+
+Select `Access Type` as `Automatic access for all users and groups`. Click on `Save`.
+
+![selectaccess](images/select_access.png)
+
+Go to `Applications` menu and select the row with the  newly created `Liberty App`. Click the `Settings` icon.
+
+![opensavedapp](images/open_saved_app_settings.png)
+
+Goto the `Sign-on` tab. Note down the below:
+- `Client ID` 
+- `Client secret`.
+
+![notecreds](images/note_client_id_secret.png)
+
+Next, note down the ` IBM Security Verify endpoint`.
+
+![openendpoint](images/open_endpoint.png)
+
+Open the `IBM Security Verify endpoint` in a new browser tab. Note down the below endpoints:
+- `introspection_endpoint`
+- `authorization_endpoint`
+- `token_endpoint`
+- `userinfo_endpoint`.
+
+
 Intro:
 This tutorial will help you to understand the ...
 
