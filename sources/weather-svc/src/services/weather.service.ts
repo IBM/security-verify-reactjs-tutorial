@@ -15,7 +15,7 @@ export class WeatherService implements WeatherApi {
 
   async weather(city: string = 'New York'): Promise<string> {
     this.logger.info(`Getting weather for ${city}`);
-    const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=68c6b9ec6119ec653a31bb81bc7a42ff';
+    const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=<<apikey>>';
     const response = await fetch(url, {
       method: 'GET',
       headers: {
