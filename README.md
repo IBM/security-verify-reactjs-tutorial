@@ -185,16 +185,13 @@ Check your e-mail for a confirmation mail from Security Verify. The email contai
 
 ![confirmemail](images/email_confirm.png)
 
-Intro:
-This tutorial will help you to understand the ...
+### Deploy the weather microservice
 
+#### Get API key from Open Weather Map
+https://openweathermap.org/api
 
+### Deploy the user info service
 
-Steps:
-
-1. Security Verify Setup
-2. Build & Deploy user management service
-3. Build & Deploy weather api 
 
 
 **4. Build & Deploy frontend gateway service**
