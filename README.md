@@ -89,7 +89,7 @@ Security Verify includes `SAML` and `OIDC` cloud based federated single sign-on 
 This tutorial covers the below aspects:
 
 - Adding and configure a custom application on Security Verify for SSO <br/>
-The custom application can be deployed anywhere - On-premise or on any Cloud provider. We will deploy the application on OpenShift(on IBM Cloud) for this tutorial to demonstrate the procedure which would remain the same irrespective of where the application is deployed. The custom application is registered with Security Verify.
+The custom application can be deployed anywhere - On-premise or on any Cloud provider. We will deploy the application on OpenShift(on IBM Cloud) for this tutorial to demonstrate the procedure. The configuration steps would remain the same irrespective of the cloud provider. The custom application is registered with Security Verify.
 The custom application contains three microservices:
 (a) Front-end UI service built using React.js that interacts with back-end services
 (b) Weather service built on Node.js that returns the weather information for a provided location
