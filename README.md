@@ -109,6 +109,10 @@ The Security Verify Dashboard can be used to generate reports on the application
 
 ## Prerequisites
 
+[IBM Cloud](https://cloud.ibm.com)
+
+[OpenShift](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
+
 [IBM Security Verify account](https://www.ibm.com/account/reg/in-en/signup?formid=urx-30041)
 
 [Git client](https://git-scm.com/downloads)
@@ -191,19 +195,67 @@ Check your e-mail for a confirmation mail from Security Verify. The email contai
 
 ![confirmemail](images/email_confirm.png)
 
-### Create an OpenShift cluster
+### Deploy the application
 
-### Deploy the weather microservice
+**Create an OpenShift cluster**
+Login to your IBM Cloud account and create an OpenShift cluster(https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift).
+
+**Clone the GitHub repository**
+
+Open a terminal and clone the GitHub repo by running the following command:
+```
+git clone https://github.com/IBM/security-verify-reactjs-tutorial
+```
+
+**Login to your OpenShift cluster from command line**
+
+Login to your OpenShift cluster. Access the `IBM Cloud Dashboard > Clusters (under Resource Summary) > click on your OpenShift Cluster > OpenShift web Console`. Click the dropdown next to your username at the top of the OpenShift web console and select Copy Login Command. Select Display Token and copy the oc login command from the web console and paste it into the terminal on your workstation. Run the command to login to the cluster using `oc` command line.
+
+#### Deploy the weather microservice
 
 #### Get API key from Open Weather Map
 
 Sign up on https://openweathermap.org/api. Subscribe to the `Current Weather Data` and note the API Key.
 
+**Configure the API key for Open Weather API**
+Open the file `weather.service.ts` under `sources/weather-svc/src/services` in the repo you cloned earlier. 
+Replace `<<apikey>>` in the line (shown below) with the API key for the Open Weather API you noted, and save the file.
+```
+const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=<<apikey>>';
+```
+
+On a terminal, Go to the `sources/weather-svc` directory in the clone repo folder. Run the below commands:
+```
+oc new-project weather
+oc new-app . --name=weather-svc --strategy=docker
+oc start-build weather-svc --from-dir=.
+oc logs -f bc/weather-svc
+oc expose svc/weather-svc
+```
+
+Ensure that the service is started successfully using the command `oc get pods`. Also make a note of the route using the command `oc get routes`. The route will be provided in the configuration of the front-end microservice.
 
 
 ### Deploy the user info service
 
+Open the file `verify.config` under `user-info-svc/src/main/resources`. Add the `introspection_endpoint`, `Client ID` and `Client Secret` that you noted for Security Verify configuration as shown below, and save the file:
 
+```
+introspectionUrl=https://[[tenant id]].verify.ibm.com/v1.0/endpoint/default/introspect
+clientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+clientSecret=xxxxxxxxxx
+```
+
+On a terminal, Go to the `sources/user-info-svc` directory in the clone repo folder. Run the below commands:
+```
+oc new-project userinfo
+oc new-app . --name=user-info-svc --strategy=docker
+oc start-build user-info-svc --from-dir=.
+oc logs -f bc/user-info-svc
+oc expose svc/user-info-svc
+```
+
+Ensure that the service is started successfully using the command `oc get pods`. Also make a note of the route using the command `oc get routes`. The route will be provided in the configuration of the front-end microservice.
 
 **4. Build & Deploy frontend gateway service**
 
