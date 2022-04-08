@@ -135,19 +135,20 @@ Select the application type as `Custom Application`. Click on `Add application`.
 
 ![addapp](images/click_add_application.png)
 
-Enter a name for the application and a `Company name`.
+Enter a name(say ReactApp) for the application and a `Company name`.
 
 ![enterdetails](images/enter_name_company.png)
 
 
 You will now configure SSO using the [OpenID Connect](https://openid.net/connect/) based authentication with `Authorization code` scheme. Click on the `Sign-on` tab. Configure as follows:
-- Enter a name for the app say `Liberty App`
 - Select the `Sign-on method` as `Open ID Connect 1.0`. 
-- Enter the `Application URL` as `<TODO>`.
+- Enter the `Application URL` as `http://localhost:3002`.
+>Note: The application URL will be replaced with the OpenShift deployment URL for the front-end service. This configuration will work if the front-end application is deployed locally.
 - Choose `Grant types` as `Authorization code`.
 - Unselect the option `Require proof key for code exchange (PKCE) verification`.
-- Enter `Redirect URIs` as `<TODO>`.
-Click on `Save` to save the configuration.
+- Enter `Redirect URIs` as `http://localhost:3002/redirect`.
+>Note: The application URL will be replaced with the OpenShift deployment URL for the front-end service. This configuration will work if the front-end application is deployed locally.
+- Click on `Save` to save the configuration.
 
 ![configuresso](images/configure_sso.png)
 
