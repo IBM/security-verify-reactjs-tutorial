@@ -196,7 +196,10 @@ Check your e-mail for a confirmation mail from Security Verify. The email contai
 ### Deploy the weather microservice
 
 #### Get API key from Open Weather Map
-https://openweathermap.org/api
+
+Sign up on https://openweathermap.org/api. Subscribe to the `Current Weather Data` and note the API Key.
+
+
 
 ### Deploy the user info service
 
