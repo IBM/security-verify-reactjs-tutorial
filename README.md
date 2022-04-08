@@ -143,11 +143,12 @@ Enter a name(say ReactApp) for the application and a `Company name`.
 You will now configure SSO using the [OpenID Connect](https://openid.net/connect/) based authentication with `Authorization code` scheme. Click on the `Sign-on` tab. Configure as follows:
 - Select the `Sign-on method` as `Open ID Connect 1.0`. 
 - Enter the `Application URL` as `http://localhost:3002`.
->Note: The application URL will be replaced with the OpenShift deployment URL for the front-end service. This configuration will work if the front-end application is deployed locally.
+>Note: The `Application URL` will be replaced with the OpenShift deployment URL for the front-end service. This locahost configuration will work if the front-end application is deployed locally.
 - Choose `Grant types` as `Authorization code`.
 - Unselect the option `Require proof key for code exchange (PKCE) verification`.
 - Enter `Redirect URIs` as `http://localhost:3002/redirect`.
->Note: The application URL will be replaced with the OpenShift deployment URL for the front-end service. This configuration will work if the front-end application is deployed locally.
+- The `Redirect URIs` will be replaced with the OpenShift deployment URL for the front-end service. This locahost configuration will work if the front-end application is deployed locally.
+>Note: The `Redirect URIs` will be replaced with the OpenShift deployment URL for the front-end service. This configuration will work if the front-end application is deployed locally.
 - Click on `Save` to save the configuration.
 
 ![configuresso](images/configure_sso.png)
