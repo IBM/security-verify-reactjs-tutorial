@@ -84,15 +84,18 @@ type: tutorial|howto    # REQUIRED
 
 Security Verify includes `SAML` and `OIDC` cloud based federated single sign-on with connectors. In this tutorial, you will learn how to to make the required connection for your custom application using the OpenID Connect (OIDC) single sign-on protocol.
 
-`OpenID Connect v1.0 (OIDC)` is a modern standard for web single sign-on. It adds an identity layer to the `OAuth 2.0` standard. These standards are popular because they have simple client-side implementations, making it easy for you to get connected. The standards support different grant types for different use cases. For web applications, the `Authorization code` grant type is the most commonly used and most widely supported. We will use the `Authorization code` grant type for this tutorial.
+[OpenID Connect v1.0 (OIDC)](https://openid.net/connect/) is a modern standard for web single sign-on. It adds an identity layer to the `OAuth 2.0` standard. These standards are popular because they have simple client-side implementations, making it easy for you to get connected. The standards support different grant types for different use cases. For web applications, the `Authorization code` grant type is the most commonly used and most widely supported. We will use the `Authorization code` grant type for this tutorial.
 
 This tutorial covers the below aspects:
 
 - Adding and configure a custom application on Security Verify for SSO <br/>
 The custom application can be deployed anywhere - On-premise or on any Cloud provider. We will deploy the application on OpenShift(on IBM Cloud) for this tutorial to demonstrate the procedure. The configuration steps would remain the same irrespective of the cloud provider. The custom application is registered with Security Verify.
 The custom application contains three microservices:
+
 (a) Front-end UI service built using React.js that interacts with back-end services
+
 (b) Weather service built on Node.js that returns the weather information for a provided location
+
 (c) User information service built on Open Liberty with Java that returns user details stored in Security Verify
 
 - Enable and Configure verify-sdk for a ReactJS based application <br/>
@@ -109,23 +112,23 @@ The Security Verify Dashboard can be used to generate reports on the application
 
 ## Prerequisites
 
-[IBM Cloud](https://cloud.ibm.com)
+* [IBM Cloud Account](https://cloud.ibm.com)
 
-[OpenShift](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
+* [OpenShift Cluster](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
 
-[IBM Security Verify account](https://www.ibm.com/account/reg/in-en/signup?formid=urx-30041)
+* [IBM Security Verify account](https://www.ibm.com/account/reg/in-en/signup?formid=urx-30041)
 
-[Git client](https://git-scm.com/downloads)
+* [Git client](https://git-scm.com/downloads)
 
-[OpenShift CLI](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html)
+* [OpenShift CLI](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html)
 
 ## Estimated time
 
-Completing this tutorial should take about 30 minutes.
+Completing this tutorial should take about 45 minutes.
 
 ## Steps
 
-### Add a custom application on Security Verify
+### 1. Add a custom application on Security Verify
 
 Login to Security Verify. Select `Applications` from the menu.
 
@@ -146,12 +149,11 @@ Enter a name(say ReactApp) for the application and a `Company name`.
 
 You will now configure SSO using the [OpenID Connect](https://openid.net/connect/) based authentication with `Authorization code` scheme. Click on the `Sign-on` tab. Configure as follows:
 - Select the `Sign-on method` as `Open ID Connect 1.0`. 
-- Enter the `Application URL` as `http://localhost:3002`.
->Note: The `Application URL` will be replaced with the OpenShift deployment URL for the front-end service. This locahost configuration will work if the front-end application is deployed locally.
+- Enter the `Application URL` say `http://localhost:3002`.
+>Note: The `Application URL` will be replaced with the OpenShift deployment URL for the front-end service. This localhost configuration will work if the front-end application is deployed locally.
 - Choose `Grant types` as `Authorization code`.
 - Unselect the option `Require proof key for code exchange (PKCE) verification`.
-- Enter `Redirect URIs` as `http://localhost:3002/redirect`.
-- The `Redirect URIs` will be replaced with the OpenShift deployment URL for the front-end service. This locahost configuration will work if the front-end application is deployed locally.
+- Enter `Redirect URIs` say `http://localhost:3002/redirect`.
 >Note: The `Redirect URIs` will be replaced with the OpenShift deployment URL for the front-end service. This configuration will work if the front-end application is deployed locally.
 - Click on `Save` to save the configuration.
 
@@ -179,11 +181,15 @@ Open the `IBM Security Verify endpoint` in a new browser tab. Note down the belo
 - `introspection_endpoint`
 - `authorization_endpoint`
 - `token_endpoint`
-- `userinfo_endpoint`.
+- `userinfo_endpoint`
 
-### Add a new user to Security Verify
+These client ID , client secret and endpoints URLs will be used to configure verify-sdk.
 
-Next go to `Users & Groups` to add a new user. Click on `Add user`.
+### 2. Add a new user to Security Verify
+
+The users will be required for testing purpose. Users can be added using APIs through an application or using Security Verify dashboard. This tutorial adds users through dashboard.
+
+Go to `Users & Groups` to add a new user. Click on `Add user`.
 
 ![adduser](images/select_adduser.png)
 
@@ -195,10 +201,11 @@ Check your e-mail for a confirmation mail from Security Verify. The email contai
 
 ![confirmemail](images/email_confirm.png)
 
-### Deploy the application
+### 3. Setup the environment to deploy the services
 
 **Create an OpenShift cluster**
-Login to your IBM Cloud account and create an OpenShift cluster(https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift).
+
+Login to your IBM Cloud account and create an OpenShift cluster(https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift) if not created before.
 
 **Clone the GitHub repository**
 
@@ -211,20 +218,21 @@ git clone https://github.com/IBM/security-verify-reactjs-tutorial
 
 Login to your OpenShift cluster. Access the `IBM Cloud Dashboard > Clusters (under Resource Summary) > click on your OpenShift Cluster > OpenShift web Console`. Click the dropdown next to your username at the top of the OpenShift web console and select Copy Login Command. Select Display Token and copy the oc login command from the web console and paste it into the terminal on your workstation. Run the command to login to the cluster using `oc` command line.
 
-#### Deploy the weather microservice
+### 4. Deploy the weather service
 
 #### Get API key from Open Weather Map
 
 Sign up on https://openweathermap.org/api. Subscribe to the `Current Weather Data` and note the API Key.
 
 **Configure the API key for Open Weather API**
+
 Open the file `weather.service.ts` under `sources/weather-svc/src/services` in the repo you cloned earlier. 
 Replace `<<apikey>>` in the line (shown below) with the API key for the Open Weather API you noted, and save the file.
 ```
 const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=<<apikey>>';
 ```
 
-On a terminal, Go to the `sources/weather-svc` directory in the clone repo folder. Run the below commands:
+On a terminal, go to the `sources/weather-svc` directory in the clone repo folder. Run the below commands:
 ```
 oc new-project weather
 oc new-app . --name=weather-svc --strategy=docker
@@ -233,10 +241,10 @@ oc logs -f bc/weather-svc
 oc expose svc/weather-svc
 ```
 
-Ensure that the service is started successfully using the command `oc get pods`. Also make a note of the route using the command `oc get routes`. The route will be provided in the configuration of the front-end microservice.
+Ensure that the service is started successfully using the command `oc get pods`. Also make a note of the route using the command `oc get routes`. The route will be required in the configuration of the front-end microservice.
 
 
-### Deploy the user info service
+### 5. Deploy the user info service
 
 Open the file `verify.config` under `user-info-svc/src/main/resources`. Add the `introspection_endpoint`, `Client ID` and `Client Secret` that you noted for Security Verify configuration as shown below, and save the file:
 
@@ -246,7 +254,7 @@ clientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 clientSecret=xxxxxxxxxx
 ```
 
-On a terminal, Go to the `sources/user-info-svc` directory in the clone repo folder. Run the below commands:
+On a terminal, go to the `sources/user-info-svc` directory in the clone repo folder. Run the below commands:
 ```
 oc new-project userinfo
 oc new-app . --name=user-info-svc --strategy=docker
@@ -255,16 +263,43 @@ oc logs -f bc/user-info-svc
 oc expose svc/user-info-svc
 ```
 
-Ensure that the service is started successfully using the command `oc get pods`. Also make a note of the route using the command `oc get routes`. The route will be provided in the configuration of the front-end microservice.
+Ensure that the service is started successfully using the command `oc get pods`. Also make a note of the route using the command `oc get routes`. The route will be required in the configuration of the front-end microservice.
 
-**4. Build & Deploy frontend gateway service**
+### 6. Build & Deploy frontend service
 
-When we create a react app, it runs on its own server (express). You can configure any other server of your choice as well like apollo. You can navigate to different components in React app using React Router mechanism. If you need to call any backend APIs from your react pages, then you can achieve it in two ways - either embed the backend API call in your React pages itself or use a gateway service to call other APIs and using proxy your react pages can call gateway service APIs. In microservices based architecture, having gateway service in between is recommended as it provides more flexibility to handle the changes in API call. In this case your UI application and gateway service runs as two different applications. Running multiple applications during development phase is fine but for production it is good to be bundled as one application which ease out the process of maintenance and increases performance too. Read this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) for more information.
+When we create a react app, it runs on its own server (express). You can configure any other server of your choice as well like apollo. You can navigate to different components in React app using React Router mechanism. If you need to call any backend APIs from your react pages, then you can achieve it in two ways - either embed the backend API call in your React pages itself or use a gateway service to call other APIs and using proxy your react pages can call gateway service APIs. In microservices based architecture, having gateway service in between is recommended as it provides more flexibility to handle the changes in API call. In this case your UI application and gateway service runs as two different applications. Running multiple applications during development phase is fine but for production it is good to be bundled as one application for performance improvement. Read this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) for more information.
 
-To integrate React UI with security verify,  we need to do login using security verify page and then come back to React UI.
-Here in this tutorial, the UI code is available at `sources/frontend-gateway-svc/ui-react`. 
+<!-- To integrate React UI with security verify,  we need to do login using security verify page and then come back to React UI. -->
 
-### Monitor application usage
+Here in this tutorial, the UI code is available at `sources/frontend-gateway-svc/ui-react` and the code to integrate with `verify-sdk` is available at `sources/frontend-gateway-svc/server.js`. Go to the cloned code and navigate to `sources/frontend-gateway-svc/`.
+
+To build react code, perform the following steps:
+
+```
+cd ui-react
+npm install
+npm run build
+```
+
+It will build the react code. Next, configure the verify-sdk and deploy the service. Navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
+
+Provide the Security Verify credentials and other deloyed services URLs (noted in previous steps) in `.env` and save it.
+
+On a terminal, go to the `sources/frontend-gateway-svc` directory in the clone repo folder. Run the below commands:
+
+```
+oc new-project frontend
+oc new-app . --name=ui-svc --strategy=docker
+oc start-build ui-svc --from-dir=.
+oc logs -f bc/ui-svc
+oc expose svc/ui-svc
+```
+
+Ensure that the service is started successfully using the command `oc get pods`. Get the route using the command `oc get routes`. The application will be accessible using this route.
+
+### 7. Access the application
+
+### 8. Monitor application usage
 
 You can generate a report for an application. Navigate to `Reports`.
 Select the application and click on `View Report`.
