@@ -267,7 +267,7 @@ Ensure that the service is started successfully using the command `oc get pods`.
 
 ### 6. Build & Deploy frontend service
 
-When we create a react app, it runs on its own server (express). You can configure any other server of your choice as well like apollo. You can navigate to different components in React app using React Router mechanism. If you need to call any backend APIs from your react pages, then you can achieve it in two ways - either embed the backend API call in your React pages itself or use a gateway service to call other APIs and using proxy your react pages can call gateway service APIs. In microservices based architecture, having gateway service in between is recommended as it provides more flexibility to handle the changes in API call. In this case your UI application and gateway service runs as two different applications. Running multiple applications during development phase is fine but for production it is good to be bundled as one application for performance improvement. Read this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) for more information.
+<!-- When we create a react app, it runs on its own server (express). You can configure any other server of your choice as well like apollo. You can navigate to different components in React app using React Router mechanism. If you need to call any backend APIs from your react pages, then you can achieve it in two ways - either embed the backend API call in your React pages itself or use a gateway service to call other APIs and using proxy your react pages can call gateway service APIs. In microservices based architecture, having gateway service in between is recommended as it provides more flexibility to handle the changes in API call. In this case your UI application and gateway service runs as two different applications. Running multiple applications during development phase is fine but for production it is good to be bundled as one application for performance improvement. Read this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) for more information. -->
 
 <!-- To integrate React UI with security verify,  we need to do login using security verify page and then come back to React UI. -->
 
@@ -279,9 +279,10 @@ To build react code, perform the following steps:
 cd ui-react
 npm install
 npm run build
+rm -rf node_modules
 ```
 
-It will build the react code. Next, configure the verify-sdk and deploy the service. Navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
+It builds the react code. Next, configure the verify-sdk and deploy the service. Navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
 
 Provide the Security Verify credentials and other deloyed services URLs (noted in previous steps) in `.env` and save it.
 
