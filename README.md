@@ -313,7 +313,7 @@ Access the frontend service route using a browser. You can perform the following
 * After login, either you can check user profile or get weather updates.
 * Clicking on `Get My Profile`, will fetch the information from the user profile created in Security Verify.
 * Clicking on `Get Weather Updates`, will give the weather information for the provided location.
-* If you try to access the APIs directly without login, it will throw an error as `Unauthorised access`. It is because all services perform token introspection.
+* If you try to access the APIs directly without login, it will throw an error as `Unauthorised access` because all services perform token introspection anf fails for invalid token.
 
 
 
