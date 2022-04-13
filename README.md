@@ -98,7 +98,7 @@ The tutorial covers the below aspects:
     The application code is provided [here](https://github.com/IBM/security-verify-reactjs-tutorial).
 
 - Enable and configure verify-sdk for the React application to enable authentication <br/>
-In this tutorial, we demonstrate a strategy to use [verify-sdk](https://docs.verify.ibm.com/verify/docs/verify-sdk) with the React app. This configuration would re-direct the request to `Security Verify` for authentication.
+In this tutorial, we demonstrate a strategy to use [verify-sdk](https://docs.verify.ibm.com/verify/docs/verify-sdk) with the React app. The Verify-SDK is a JavaScript SDK. It is used to integrate with IBM Security Verify as it provides the method to obtain identity token, access token and some more.  This configuration re-directs the request to `Security Verify` for authentication and comes back to React app with a valid token after successful authentication.
 
 - Adding and configure the application on IBM Security Verify for SSO <br/>
 The application can be deployed anywhere - On-premise or on any Cloud provider. We will deploy the application on OpenShift(on IBM Cloud) for this tutorial to demonstrate the procedure. The configuration steps would remain the same irrespective of the cloud provider. The application will be registered with Security Verify.
@@ -297,9 +297,11 @@ Ensure that the service is started successfully using the command `oc get pods`.
 
 <!-- To integrate React UI with security verify,  we need to do login using security verify page and then come back to React UI. -->
 
-The front-end service generally communicates with back-end services using a Gateway service in a development environment. In a production set-up, frontend service and gateway service are deployed as single application. Refer this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) to get more understanding on how-to achieve this in a React application. The sample application provided here demonstrates the same. 
+The front-end service generally communicates with back-end services using a Gateway service in a development environment. In a production set-up, frontend service and gateway service are deployed as single application. Read this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) to get more understanding on how-to achieve this in a React application. The sample application provided here demonstrates the same. 
 
-The React code of frontend service is available at `sources/frontend-gateway-svc/ui-react` and the code to integrate with `verify-sdk` and other services is available at `sources/frontend-gateway-svc/server.js` in the cloned repository. 
+The React code of frontend service is available at `sources/frontend-gateway-svc/ui-react` and the code to integrate with `verify-sdk` and other services is available at `sources/frontend-gateway-svc/server.js`. 
+
+**Build frontend(React) code**
 
 As a next step, go to the cloned code and navigate to `sources/frontend-gateway-svc/`.
 
@@ -312,9 +314,13 @@ npm run build
 rm -rf node_modules
 ```
 
-The front-end(UI) code is built and creates `ui-react/build` folder. To configure the verify-sdk, navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
+The front-end(UI) code is built and creates `ui-react/build` folder. 
 
-Open the file `.env`. Replace the placeholders with the `Security Verify Base URL`, `Client ID`, `Client Secret`, `Profile ID` that you noted earlier, and save the file.
+**Configure Verify-SDK and other service URLs**
+
+Navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
+
+Open the file `.env`. Replace the placeholders with the `Security Verify Base URL`, `Client ID`, `Client Secret`, `Profile ID`, weather service route, user-info service that you noted earlier, and save the file.
 
 ```
 TENANT_URL=https://{{tenant id}}.verify.ibm.com
@@ -324,7 +330,13 @@ RESPONSE_TYPE=code
 FLOW_TYPE=authorization
 SCOPE=openid
 REGISTRATION_PROFILE_ID={{Profile ID}}
+
+WEATHER_SERVICE_URL=
+USER_PROFILE_SERVICE_URL=
 ```
+
+**Deploy frontend service**
+
 On a terminal, go to the `sources/frontend-gateway-svc` directory in the cloned repo folder. Run the below commands:
 
 ```
@@ -337,6 +349,15 @@ oc expose svc/ui-svc
 
 Ensure that the service is started successfully using the command `oc get pods`. Get the route using the command `oc get routes`. The application will be accessible using this route.
 
+**Update the application URL and redirect URI in Security Verify**
+
+Access the Security Verify and update application URL and redirect URI with the frontend service route as explained in Step 1. 
+
+```
+Application URL - http://xxx-0000.us-south.containers.appdomain.cloud
+Redirect URI - http://xxx-0000.us-south.containers.appdomain.cloud/redirect
+```
+
 ### 7. Access the application
 
 Access the frontend service route using a browser. You can perform the following functionality in the application.
@@ -347,6 +368,7 @@ Access the frontend service route using a browser. You can perform the following
 * Clicking on `Get Weather Updates`, will give the weather information for the provided location.
 * If you try to access the APIs directly without login, it will throw an error as `Unauthorised access` because all services perform token introspection anf fails for invalid token.
 
+![demo](images/demo_video.gif)
 
 
 ### 8. Monitor application usage
@@ -363,7 +385,7 @@ View user activity for the application:
 
 ### Summary
 
-In this tutorial, you added SSO to a React.JS based application with Security Verify. You saw how back-end microservices can be protected with Security Verify. I hope you found the tutorial useful!
+In this tutorial, you added SSO to a React.JS based application with Security Verify. You have learnt how back-end microservices can be protected with Security Verify. Hope you found the tutorial useful!
 
 If you wish to use `Spring Security` to integrate your Java application with `Security Verify` please refer to the tutorial - [Protect enterprise applications with single sign-on (SSO) and monitor their usage using IBM Security Verify](https://developer.ibm.com/tutorials/protect-applications-sso-ibm-security-verify/).
 
