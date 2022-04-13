@@ -178,11 +178,13 @@ Next, note down the ` IBM Security Verify endpoint`.
 
 Open the `IBM Security Verify endpoint` in a new browser tab. Note down the below endpoints:
 - `introspection_endpoint`
-- `authorization_endpoint`
-- `token_endpoint`
-- `userinfo_endpoint`
 
-The client ID, client secret and endpoints URLs will be used further.
+Also, note down the registration profile id. On the Security Verify dashboard, go to `Authentication` and then `Registration Profiles`. 
+Note the `Profile ID` for the Security Verify profile.
+
+Make a note of the `Base URL` for your Security Verify instance - https://[tenant id].verify.ibm.com.
+
+The Security Verify Base URL, client ID, client secret, Profile ID and Introspection endpoint URL will be used in subsequent sections.
 
 ### 2. Add a new user to Security Verify
 
