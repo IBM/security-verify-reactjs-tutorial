@@ -368,7 +368,7 @@ Access the frontend service route using a browser. You can perform the following
 * Clicking on `Get Weather Updates`, will give the weather information for the provided location.
 * If you try to access the APIs directly without login, it will throw an error as `Unauthorised access` because all services perform token introspection anf fails for invalid token.
 
-![demo](images/demo_video.gif)
+![demo](images/Demo_video.gif)
 
 
 ### 8. Monitor application usage
