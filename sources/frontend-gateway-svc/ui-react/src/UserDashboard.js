@@ -46,6 +46,7 @@ class UserDashboard extends React.Component {
         })
         .then(
             (result) => {
+              // alert(result);
               let testStr = JSON.stringify(result);
               this.setState( {recvdWeatherData: true, weatherData: testStr} );
         },
@@ -54,7 +55,7 @@ class UserDashboard extends React.Component {
           }
         )
       } else {
-        alert("Location is not provided.");
+        alert("Please provide the location");
       }
     }
 

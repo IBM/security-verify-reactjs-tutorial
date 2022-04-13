@@ -1,11 +1,13 @@
 import React from 'react';
 import { Header, HeaderName } from 'carbon-components-react/lib/components/UIShell';
-import { Button, Tile } from 'carbon-components-react';
-import { Link } from 'react-router-dom';
+import { Tile } from 'carbon-components-react';
 
 class HomePage extends React.Component {
 
     render(){
+
+      let loginURL = 'http://' + window.location.hostname + '/login';
+
       return (
       <div>
         <div className="container">
@@ -20,7 +22,7 @@ class HomePage extends React.Component {
 
           <div style={{width: '500px', height: '70px', marginLeft: "2rem", marginBottom: '20rem', marginTop: '4rem', position: "relative", border: "2px solid white"}}> 
               <Tile style={{fontSize: '20px'}}>
-                Login through Security Verify - <Link to="login">Login</Link>
+                Login through Security Verify - <a target="_blank" href={loginURL}>Login</a>
               </Tile> 
           </div>
 
