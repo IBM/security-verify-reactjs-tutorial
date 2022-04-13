@@ -5,20 +5,12 @@ const path = require('path');
 const axios = require('axios');
 
 require('dotenv').config();
-const config = {
-	tenantUrl            : process.env.TENANT_URL,
-	clientId             : process.env.CLIENT_ID,
-	clientSecret         : process.env.CLIENT_SECRET,
-	redirectUri          : process.env.REDIRECT_URI,
-	responseType         : process.env.RESPONSE_TYPE,
-	flowType             : process.env.FLOW_TYPE,
-	scope                : process.env.SCOPE
-};
 
 var {OAuthContext} = require('ibm-verify-sdk');
-var authClient = new OAuthContext(config);
+var authClient;
+// var authClient = new OAuthContext(config);
 
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3004;
 
 const app = express();
 app.use(session({
@@ -37,7 +29,24 @@ app.get("/testAPI", (req, res) => {
 
 app.get('/login', (req, res) => {
     console.log("/login");
+	// console.log(req);
+	// var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+	// console.log(fullUrl);
+	// console.log(req.get('host'));
+	// console.log(req.originalUrl);
     res.set('Access-Control-Allow-Origin', '*');
+	var REDIRECT_URI = req.protocol + '://' + req.get('host') + '/redirect';
+	console.log(REDIRECT_URI);
+	const config = {
+		tenantUrl            : process.env.TENANT_URL,
+		clientId             : process.env.CLIENT_ID,
+		clientSecret         : process.env.CLIENT_SECRET,
+		redirectUri          : REDIRECT_URI,
+		responseType         : process.env.RESPONSE_TYPE,
+		flowType             : process.env.FLOW_TYPE,
+		scope                : process.env.SCOPE
+	};
+	authClient = new OAuthContext(config);
 	authClient.authenticate().then((url) => {
 		console.log(`("======== Authentication redirect to: \n ${url}`);
 		res.redirect(url);
@@ -98,11 +107,12 @@ app.get('/getWeatherDetails/:location', async (req, res) => {
 		})
 		.catch (function (error) {
 			console.log(error);
-			res.json({"Error": JSON.stringify(error)});
+			res.json({"Error": "Not authorised"});
+			// res.send(error);
 		});
 	} else {
 		console.log('ERROR: No valid token available in the current session.');
-		res.json({"Error": "No valid token available in the current session."});
+		res.json({"Error": "Not authorised"});
 	}
 	
 });
@@ -136,7 +146,7 @@ app.get('/getUserProfile', async (req,res) => {
 		});
 	} else {
 		console.log('ERROR: No valid token available in the current session .')
-		res.json({"Error": "No valid token available in the current session."});
+		res.json({"Error": "Not authorised"});
 	}
 });
 
