@@ -235,6 +235,27 @@ Replace `<<apikey>>` in the line (shown below) with the API key for the Open Wea
 const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=<<apikey>>';
 ```
 
+**Configure Security Verify endpoints for token introspection**
+
+Open the file `weather-controller.ts` under `sources/weather-svc/sources/weather-svc/src/controllers/` directory in the cloned repo folder.
+
+At around line 35(see code snippet below), there are placeholders for `introspection_endpoint`({{security verify introspection url}}), `Client ID`({{client id for security verify}}) and `Client Secret`({{client secret for security verify}}). Replace the placeholder strings with the `introspection_endpoint`, `Client ID` and `Client Secret` that you noted for Security Verify configuration, and save the file.
+```
+let data1 = qs.stringify({
+      client_id: '{{client id for security verify}}',
+      client_secret: '{{client secret for security verify}}',
+      token: tokenvalue
+    });
+
+    const response = await fetch('{{security verify introspection url}}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: data1
+    });
+ ```
+
 On a terminal, go to the `sources/weather-svc` directory in the clone repo folder. Run the below commands:
 ```
 oc new-project weather
