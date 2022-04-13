@@ -307,11 +307,11 @@ Ensure that the service is started successfully using the command `oc get pods`.
 
 ### 7. Access the application
 
-Access the frontend service route on a browser. You can perform the following functionality in the application.
+Access the frontend service route using a browser. You can perform the following functionality in the application.
 
 * Login through Security Verify using the user(s) added in step 2.
 * After login, either you can check user profile or get weather updates.
-* Clicking on `Get Profile`, will fetch the information from the user profile created in Security Verify.
+* Clicking on `Get My Profile`, will fetch the information from the user profile created in Security Verify.
 * Clicking on `Get Weather Updates`, will give the weather information for the provided location.
 * If you try to access the APIs directly without login, it will throw an error as `Unauthorised access`. It is because all services perform token introspection.
 
