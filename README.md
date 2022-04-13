@@ -320,7 +320,7 @@ The front-end(UI) code is built and creates `ui-react/build` folder.
 
 Navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
 
-Open the file `.env`. Replace the placeholders with the `Security Verify Base URL`, `Client ID`, `Client Secret`, `Profile ID`, weather service route, user-info service that you noted earlier, and save the file.
+Open the file `.env`. Replace the placeholders with the `Security Verify Base URL`, `Client ID`, `Client Secret`, `Profile ID`, route of weather service, route of user-info service that you noted earlier, and save the file.
 
 ```
 TENANT_URL=https://{{tenant id}}.verify.ibm.com
