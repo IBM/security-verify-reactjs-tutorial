@@ -1,6 +1,6 @@
 ---
 #Front matter (metadata).
-abstract:  Add SSO to a ReactJS based app using Security Verify 
+abstract:  Add SSO to a ReactJS based application using IBM Security Verify 
 
 authors:                # REQUIRED - Note: can be one or more
   - name: Shikha Maheshwari
@@ -18,7 +18,7 @@ components:
 
 draft: true|false       # REQUIRED
 
-excerpt:     Add SSO to a ReactJS based app using Security Verify 
+excerpt:     Add SSO to a ReactJS based application using IBM Security Verify 
 
 keywords:              security verify, security, sso
 
@@ -79,7 +79,7 @@ type: tutorial|howto    # REQUIRED
 
 ---
 
-[React](https://reactjs.org/) is a JavaScript library for building user interfaces and is used to build single-page applications. [SSO(Single Sign-on)](https://en.wikipedia.org/wiki/Single_sign-on) is an authentication scheme that allows the user to log in once and access services without re-entering passwords. [IBM Security Verify](https://www.ibm.com/products/verify-for-workforce-iam) provides identity-as-a-service for every user, including Single sign-on(SSO), risk-based Multi factor authentication(MFA) and adaptive access, user lifecycle management, and identity analytics. In this tutorial, you will learn how to add SSO feature in your React application using the IBM Security Verify. OpenID Connect (OIDC) single sign-on protocol.
+[React](https://reactjs.org/) is a JavaScript library for building user interfaces and is used to build single-page applications. [SSO(Single Sign-on)](https://en.wikipedia.org/wiki/Single_sign-on) is an authentication scheme that allows the user to log in once and access services without re-entering passwords. [IBM Security Verify](https://www.ibm.com/products/verify-for-workforce-iam) provides identity-as-a-service for every user, including Single sign-on(SSO), risk-based Multi factor authentication(MFA) and adaptive access, user lifecycle management, and identity analytics. In this tutorial, you will learn how to add SSO feature in your React application using the IBM Security Verify.
 
 Security Verify includes `SAML` and `OIDC` cloud based federated single sign-on with connectors. [OpenID Connect v1.0 (OIDC)](https://openid.net/connect/) is a modern standard for web single sign-on. It adds an identity layer to the `OAuth 2.0` standard. These standards are popular because they have simple client-side implementations, making it easy for you to get connected. The standards support different grant types for different use cases. For web applications, the `Authorization code` grant type is the most commonly used and most widely supported. We will use the `Authorization code` grant type for this tutorial.
 
@@ -95,7 +95,7 @@ The tutorial covers the below aspects:
 
     (c) User information service built on Open Liberty with Java that returns user details stored in Security Verify
 
-    The application code is provided and can be accessed [here](https://github.com/IBM/security-verify-reactjs-tutorial).
+    The application code is provided [here](https://github.com/IBM/security-verify-reactjs-tutorial).
 
 - Enable and configure verify-sdk for the React application to enable authentication <br/>
 In this tutorial, we demonstrate a strategy to use [verify-sdk](https://docs.verify.ibm.com/verify/docs/verify-sdk) with the React app. This configuration would re-direct the request to `Security Verify` for authentication.
@@ -182,7 +182,7 @@ Open the `IBM Security Verify endpoint` in a new browser tab. Note down the belo
 - `token_endpoint`
 - `userinfo_endpoint`
 
-These client ID , client secret and endpoints URLs will be used to configure verify-sdk.
+The client ID, client secret and endpoints URLs will be used further.
 
 ### 2. Add a new user to Security Verify
 
@@ -200,15 +200,17 @@ Check your e-mail for a confirmation mail from Security Verify. The email contai
 
 ![confirmemail](images/email_confirm.png)
 
+Repeat the same steps to add more users.
+
 ### 3. Setup the environment to deploy the services
 
 **Create an OpenShift cluster**
 
-Login to your IBM Cloud account and create an OpenShift cluster(https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift) if not created before.
+Login to your IBM Cloud account and create an [OpenShift cluster](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift) if not created before.
 
 **Clone the GitHub repository**
 
-Open a terminal and clone the GitHub repo by running the following command:
+Open a terminal and clone the GitHub repository by running the following command:
 ```
 git clone https://github.com/IBM/security-verify-reactjs-tutorial
 ```
@@ -218,6 +220,8 @@ git clone https://github.com/IBM/security-verify-reactjs-tutorial
 Login to your OpenShift cluster. Access the `IBM Cloud Dashboard > Clusters (under Resource Summary) > click on your OpenShift Cluster > OpenShift web Console`. Click the dropdown next to your username at the top of the OpenShift web console and select Copy Login Command. Select Display Token and copy the oc login command from the web console and paste it into the terminal on your workstation. Run the command to login to the cluster using `oc` command line.
 
 ### 4. Deploy the weather service
+
+This service uses the WeatherAPI provided by [OpenWeather](https://openweathermap.org/).
 
 #### Get API key from Open Weather Map
 
@@ -270,7 +274,11 @@ Ensure that the service is started successfully using the command `oc get pods`.
 
 <!-- To integrate React UI with security verify,  we need to do login using security verify page and then come back to React UI. -->
 
-Here in this tutorial, the UI code is available at `sources/frontend-gateway-svc/ui-react` and the code to integrate with `verify-sdk` is available at `sources/frontend-gateway-svc/server.js`. Go to the cloned code and navigate to `sources/frontend-gateway-svc/`.
+Generally front-end service communicates with back-end services using one gateway service in the development environment. Then in production, frontend service and gateway service are deployed as single application. Read this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) to get more understanding on how-to do this in React application. The sample application provided does the same. 
+
+The React code of frontend service is available at `sources/frontend-gateway-svc/ui-react` and the code to integrate with `verify-sdk` and other services is available at `sources/frontend-gateway-svc/server.js` in the cloned repository. 
+
+As a next step, go to the cloned code and navigate to `sources/frontend-gateway-svc/`.
 
 To build react code, perform the following steps:
 
@@ -281,11 +289,11 @@ npm run build
 rm -rf node_modules
 ```
 
-It builds the react code. Next, configure the verify-sdk and deploy the service. Navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
+The front-end(UI) code is built and creates `ui-react/build` folder. To configure the verify-sdk, navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
 
-Provide the Security Verify credentials and other deloyed services URLs (noted in previous steps) in `.env` and save it.
+Provide the Security Verify credentials and the URLs of other two services (noted in previous steps) in `.env` and save it.
 
-On a terminal, go to the `sources/frontend-gateway-svc` directory in the clone repo folder. Run the below commands:
+On a terminal, go to the `sources/frontend-gateway-svc` directory in the cloned repo folder. Run the below commands:
 
 ```
 oc new-project frontend
@@ -298,6 +306,16 @@ oc expose svc/ui-svc
 Ensure that the service is started successfully using the command `oc get pods`. Get the route using the command `oc get routes`. The application will be accessible using this route.
 
 ### 7. Access the application
+
+Access the frontend service route on a browser. You can perform the following functionality in the application.
+
+* Login through Security Verify using the user(s) added in step 2.
+* After login, either you can check user profile or get weather updates.
+* Clicking on `Get Profile`, will fetch the information from the user profile created in Security Verify.
+* Clicking on `Get Weather Updates`, will give the weather information for the provided location.
+* If you try to access the APIs directly without login, it will throw an error as `Unauthorised access`. It is because all services perform token introspection.
+
+
 
 ### 8. Monitor application usage
 
