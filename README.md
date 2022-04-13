@@ -297,7 +297,7 @@ Ensure that the service is started successfully using the command `oc get pods`.
 
 <!-- To integrate React UI with security verify,  we need to do login using security verify page and then come back to React UI. -->
 
-Generally front-end service communicates with back-end services using one gateway service in the development environment. Then in production, frontend service and gateway service are deployed as single application. Read this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) to get more understanding on how-to do this in React application. The sample application provided does the same. 
+The front-end service generally communicates with back-end services using a Gateway service in a development environment. In a production set-up, frontend service and gateway service are deployed as single application. Refer this [blog](https://www.ibm.com/cloud/blog/react-web-express-api-development-production) to get more understanding on how-to achieve this in a React application. The sample application provided here demonstrates the same. 
 
 The React code of frontend service is available at `sources/frontend-gateway-svc/ui-react` and the code to integrate with `verify-sdk` and other services is available at `sources/frontend-gateway-svc/server.js` in the cloned repository. 
 
@@ -314,8 +314,17 @@ rm -rf node_modules
 
 The front-end(UI) code is built and creates `ui-react/build` folder. To configure the verify-sdk, navigate to `sources/frontend-gateway-svc/` and copy the `.env.sample` as `.env`.
 
-Provide the Security Verify credentials and the URLs of other two services (noted in previous steps) in `.env` and save it.
+Open the file `.env`. Replace the placeholders with the `Security Verify Base URL`, `Client ID`, `Client Secret`, `Profile ID` that you noted earlier, and save the file.
 
+```
+TENANT_URL=https://{{tenant id}}.verify.ibm.com
+CLIENT_ID={{Client ID}}
+CLIENT_SECRET={{Client Secret}}
+RESPONSE_TYPE=code
+FLOW_TYPE=authorization
+SCOPE=openid
+REGISTRATION_PROFILE_ID={{Profile ID}}
+```
 On a terminal, go to the `sources/frontend-gateway-svc` directory in the cloned repo folder. Run the below commands:
 
 ```
